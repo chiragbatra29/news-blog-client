@@ -1,0 +1,49 @@
+<body>
+  <div class="container">
+    <img class= 'logo' src="../src/app/public/breakingnews.jpg" />
+    <nav>
+      <ul>
+        <li>
+          <a href='/'>Home</a>
+        </li>
+        <li>
+          <a href='/addPost'>Add Post</a>
+        </li>
+        <li>
+          <a href='/addCategory'>Add Categories</a>
+        </li>
+      </ul>
+    </nav>
+    
+      <div class="btn-group btn-group-justified" >
+        <div class="btn-group" *ngFor="let item of Ctype">
+          <button type="button" (click)="selectedCategory(item)" class="btn btn-success" >{{item}}</button>
+        </div>
+      </div>
+
+      <nav *ngIf="flag" class="navbar navbar-default">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav">
+              <li *ngFor="let item of categories"><button class="btn btn-default" (click)="getPosts(item)" >{{item}}</button></li>
+            </ul>
+          </div>
+      </nav>
+
+      <div *ngIf="postflag">
+        <div *ngFor="let item of posts" class="well">
+          {{item.post_name }}:&nbsp;&nbsp;{{item.content}}.<br/>
+             {{item.created_at}}<br/><br/>
+             Comments:
+            <div *ngFor="let comment of item.comments" >
+              <div class="well well-sm">
+                {{comment.username}}:&nbsp;{{comment.comment}}
+              </div>
+            </div><br/>
+            <input type="text" #comment>
+            <button (click)="postComment(comment.value, item.post_name)">comment</button>
+        </div>
+      </div>
+
+  </div>
+
+</body>
